@@ -1,3 +1,1 @@
-export default class MoviesApiService {
-  _;
-}
+export default class MovApiService {}
