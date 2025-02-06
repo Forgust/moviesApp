@@ -1,0 +1,24 @@
+.rating-bar {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  border: 4px solid;
+}
+.rating-bar.low {
+  border-color: #e90000;
+}
+.rating-bar.middle {
+  border-color: #e97e00;
+}
+.rating-bar.hight {
+  border-color: #e9d100;
+}
+.rating-bar.very {
+  border-color: #66e900;
+}

@@ -1,0 +1,7 @@
+.loader {
+  width: auto;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
