@@ -1,7 +1,12 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import './rating-bar.css';
+import PropTypes from 'prop-types';
 
 export default class RatingBar extends Component {
+  static propTypes = {
+    rating: PropTypes.number,
+  };
+
   round(num, decimals) {
     const factor = Math.pow(10, decimals);
     return Math.round(num * factor) / factor;

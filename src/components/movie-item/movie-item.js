@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Typography, Card, Tag, Space, Image } from 'antd';
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 import { MovApiConsumer } from '../mov-api-context';
 
-import noPoster from './generic-movie-poster.jpg';
 import MovApiService from '../../services/movie-api-service';
 import MovieRate from '../movie-rate/movie-rate';
 import RatingBar from '../rating-bar/rating-bar';
@@ -11,14 +11,26 @@ import MobileCard from '../mobile-item/mobile-item';
 
 import './movie-item.css';
 
+import noPoster from './generic-movie-poster.jpg';
+
 const { Title, Text } = Typography;
 
 export default class MovieItem extends Component {
+  static propTypes = {
+    descriptionLength: PropTypes.number,
+    id: PropTypes.number,
+    guestId: PropTypes.string,
+    isMobile: PropTypes.bool,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    imagePath: PropTypes.string,
+    style: PropTypes.object,
+  };
+
   movApi = new MovApiService();
 
   state = {
     noPoster: noPoster,
-    rate: '',
   };
 
   cardStyle = {
@@ -86,7 +98,6 @@ export default class MovieItem extends Component {
   }
 
   onRate = (rate) => {
-    console.log(this.state.rate);
     this.setState({
       rate: rate,
     });
@@ -95,7 +106,7 @@ export default class MovieItem extends Component {
   };
 
   render() {
-    const { isMobile, description, date, imagePath, width, ...props } = this.props;
+    const { isMobile, description, date, imagePath, ...props } = this.props;
     const formatedDate = this.formatDate(date);
     const style = this.cardStyle;
     const cuttedDescription = this.cutDescription(description);
@@ -124,9 +135,9 @@ export default class MovieItem extends Component {
 }
 
 const DesktopCard = ({ style, formatedDate, cuttedDescription, imageSrc, props, onRate }) => {
-  const { title, loading, rating, rate, genresIds } = props;
+  const { title, rating, rate, genresIds } = props;
   return (
-    <Card hoverable loading={loading} style={style.main} cover={<CardImage src={imageSrc} style={style.image} />}>
+    <Card hoverable style={style.main} cover={<CardImage src={imageSrc} style={style.image} />}>
       <Space className="card-body">
         <RatingBar rating={rating}></RatingBar>
         <Title style={style.title}>{title}</Title>
@@ -152,6 +163,18 @@ const DesktopCard = ({ style, formatedDate, cuttedDescription, imageSrc, props, 
     </Card>
   );
 };
+DesktopCard.propTypes = {
+  style: PropTypes.object,
+  formatedDate: PropTypes.string,
+  cuttedDescription: PropTypes.string,
+  imageSrc: PropTypes.string,
+  props: PropTypes.object,
+  onRate: PropTypes.func,
+  title: PropTypes.string,
+  rating: PropTypes.number,
+  rate: PropTypes.number,
+  genresIds: PropTypes.array,
+};
 
 const CardGenres = ({ genres, genresIds }) => {
   let currentGenres = genres.filter((item) => {
@@ -176,6 +199,10 @@ const CardGenres = ({ genres, genresIds }) => {
 
 const CardImage = ({ src, style }) => {
   return <Image preview={false} src={src} alt="movie image" style={style} />;
+};
+CardImage.propTypes = {
+  src: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export { CardGenres };

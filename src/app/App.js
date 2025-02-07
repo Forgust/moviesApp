@@ -9,9 +9,9 @@ import PaginationSearch from '../components/pagination-search/pagination-search'
 import Tab from '../components/tab/tab';
 
 import './App.css';
-
+/* eslint-disable */
 const debounce = require('lodash.debounce');
-
+/* eslint-enable */
 export default class App extends Component {
   movApi = new MovApiService();
 
@@ -131,8 +131,8 @@ export default class App extends Component {
         return false;
       }
     });
-
-    return (newData = [...ratedData, ...filteredData]);
+    newData = [...ratedData, ...filteredData];
+    return newData;
   }
 
   updateData = (text = this.state.text, page = 1) => {
@@ -183,7 +183,6 @@ export default class App extends Component {
       });
       return;
     }
-    console.log(`isRated: ${isRated},hasRatedData: ${hasRatedData}, results:`, results);
     if (!isRated) {
       if (hasRatedData) {
         currentData = this.sortData(results, ratedData);

@@ -1,8 +1,18 @@
 import { Rate } from 'antd';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import './movie-rate.css';
+import PropTypes from 'prop-types';
 
 export default class MovieRate extends Component {
+  static propTypes = {
+    onRate: PropTypes.func,
+    rate: PropTypes.number,
+  };
+
+  static defaultProps = {
+    rate: 0,
+  };
+
   onRateClick = (rate) => {
     const { onRate } = this.props;
     onRate(rate);

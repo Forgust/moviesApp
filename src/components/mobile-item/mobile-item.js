@@ -1,7 +1,9 @@
+import React, { Component } from 'react';
 import { Card, Space, Typography } from 'antd';
-import { MovApiConsumer } from '../mov-api-context';
-import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { CardGenres } from '../movie-item/movie-item';
+import { MovApiConsumer } from '../mov-api-context';
 
 import RatingBar from '../rating-bar/rating-bar';
 import MovieRate from '../movie-rate/movie-rate';
@@ -11,6 +13,13 @@ import './mobile-item.css';
 const { Title, Text } = Typography;
 
 export default class MobileCard extends Component {
+  static propTypes = {
+    formatedDate: PropTypes.string,
+    cuttedDescription: PropTypes.string,
+    imageSrc: PropTypes.string,
+    props: PropTypes.object,
+    onRate: PropTypes.func,
+  };
   style = {
     card: {
       height: '100%',
@@ -23,11 +32,12 @@ export default class MobileCard extends Component {
     titleText: {
       fontSize: '20px',
       margin: '0',
+      padding: '0 15px 0 0',
     },
   };
   render() {
     const { formatedDate, cuttedDescription, imageSrc, props, onRate } = this.props;
-    const { title, loading, rating, rate, genresIds } = props;
+    const { title, rating, rate, genresIds } = props;
     const { card, image, titleText } = this.style;
     return (
       <Card className="mobile-card" hoverable style={card}>

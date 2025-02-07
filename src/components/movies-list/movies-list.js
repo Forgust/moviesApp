@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
-import Loader from '../loader/loader';
-import { ErrorLoading } from '../error/error';
+import PropTypes from 'prop-types';
 import { Empty } from 'antd';
 
-import './movies-list.css';
+import Loader from '../loader/loader';
 import MovieItem from '../movie-item/movie-item';
+import { ErrorLoading } from '../error/error';
+
+import './movies-list.css';
 
 export default class MoviesList extends Component {
+  static propTypes = {
+    data: PropTypes.array,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    empty: PropTypes.bool,
+    hasData: PropTypes.bool,
+    isMobile: PropTypes.bool,
+    guestId: PropTypes.string,
+    descriptionLength: PropTypes.number,
+    width: PropTypes.number,
+  };
+
   render() {
     const { data, loading, error, empty, hasData, guestId, descriptionLength, width, isMobile } = this.props;
+
     const emptyBlock = empty ? <Empty /> : null;
     const errorBlock = error ? <ErrorLoading /> : null;
     const loadBlock = loading ? <Loader /> : null;
@@ -41,7 +56,7 @@ const CardView = ({ data, guestId, descriptionLength, width, isMobile }) => {
         imagePath={movie.poster_path}
         guestId={guestId}
         rating={movie.vote_average}
-        rate={movie.rating ? movie.rating : '0'}
+        rate={movie.rating ? movie.rating : 0}
         descriptionLength={descriptionLength}
         width={width}
         isMobile={isMobile}
@@ -50,4 +65,12 @@ const CardView = ({ data, guestId, descriptionLength, width, isMobile }) => {
   });
 
   return <div className="card-list">{cards}</div>;
+};
+
+CardView.propTypes = {
+  data: PropTypes.array,
+  isMobile: PropTypes.bool,
+  guestId: PropTypes.string,
+  descriptionLength: PropTypes.number,
+  width: PropTypes.number,
 };

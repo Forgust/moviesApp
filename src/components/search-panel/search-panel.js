@@ -1,7 +1,13 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Input } from 'antd';
+import PropTypes from 'prop-types';
 
 export default class SearchPanel extends Component {
+  static propTypes = {
+    text: PropTypes.string,
+    updateData: PropTypes.func,
+  };
+
   state = {
     value: '',
   };
@@ -17,7 +23,7 @@ export default class SearchPanel extends Component {
     });
   };
 
-  searchUpdateData = (e) => {
+  searchUpdateData = () => {
     this.props.updateData(this.state.value);
   };
 

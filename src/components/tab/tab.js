@@ -1,7 +1,13 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Tabs } from 'antd';
+import PropTypes from 'prop-types';
 
 export default class Tab extends Component {
+  static propTypes = {
+    updateData: PropTypes.func,
+    updateDataRated: PropTypes.func,
+  };
+
   swapCurrentPage = (page) => {
     const { updateData, updateDataRated } = this.props;
     if (page === '1') {
