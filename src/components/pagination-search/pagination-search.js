@@ -10,7 +10,18 @@ class PaginationSearch extends Component {
   };
   render() {
     const { totalMovies, page, toNextPage } = this.props;
-    return <Pagination align="end" defaultCurrent={1} total={totalMovies} current={page} onChange={toNextPage} />;
+
+    return (
+      <Pagination
+        align="end"
+        defaultCurrent={1}
+        total={totalMovies}
+        current={page}
+        onChange={toNextPage}
+        showSizeChanger={false}
+        pageSize={20}
+      />
+    );
   }
 }
 

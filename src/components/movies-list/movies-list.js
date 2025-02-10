@@ -23,7 +23,6 @@ export default class MoviesList extends Component {
 
   render() {
     const { data, loading, error, empty, hasData, guestId, descriptionLength, width, isMobile } = this.props;
-
     const emptyBlock = empty ? <Empty /> : null;
     const errorBlock = error ? <ErrorLoading /> : null;
     const loadBlock = loading ? <Loader /> : null;

@@ -117,22 +117,19 @@ export default class App extends Component {
   }
 
   sortData(data, ratedData) {
-    let newData = [];
     if (data.length === 0 || ratedData.length === 0) {
-      console.log('is empty');
       return;
     }
-    let filteredData = data.filter((item, index) => {
-      if (!ratedData[index]) {
-        return true;
-      }
-      const item2 = ratedData[index];
-      if (item.id === item2.id) {
-        return false;
+    let filteredData = data.map((searchMovie) => {
+      for (let ratedMovie of ratedData) {
+        if (searchMovie.id === ratedMovie.id) {
+          return ratedMovie;
+        } else {
+          return searchMovie;
+        }
       }
     });
-    newData = [...ratedData, ...filteredData];
-    return newData;
+    return filteredData;
   }
 
   updateData = (text = this.state.text, page = 1) => {
@@ -152,7 +149,7 @@ export default class App extends Component {
       });
   };
 
-  updateDataRated = (page = 1, text = this.state.text) => {
+  updateDataRated = (text = this.state.text, page = 1) => {
     const { guestId } = this.state;
     this.onLoading();
     this.setState({
@@ -231,7 +228,12 @@ export default class App extends Component {
   }
 
   toNextPage = (page) => {
-    this.updateData(this.state.text, page);
+    const { currentPage, text } = this.state;
+    if (currentPage === 'Search') {
+      this.updateData(text, page);
+    } else if (currentPage === 'Rated') {
+      this.updateDataRated(text, page);
+    }
   };
 
   render() {
