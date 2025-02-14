@@ -13,13 +13,14 @@ class PaginationSearch extends Component {
 
     return (
       <Pagination
-        align="end"
+        align="center"
         defaultCurrent={1}
         total={totalMovies}
         current={page}
         onChange={toNextPage}
         showSizeChanger={false}
         pageSize={20}
+        className="pagination"
       />
     );
   }

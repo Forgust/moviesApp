@@ -117,19 +117,28 @@ export default class App extends Component {
   }
 
   sortData(data, ratedData) {
+    console.log(data, ratedData);
     if (data.length === 0 || ratedData.length === 0) {
       return;
     }
-    let filteredData = data.map((searchMovie) => {
-      for (let ratedMovie of ratedData) {
-        if (searchMovie.id === ratedMovie.id) {
-          return ratedMovie;
+
+    function compareAndMergeArrays(array1, array2, key) {
+      const result = [];
+
+      const idsFromArray2 = new Set(array2.map((item) => item[key]));
+
+      array1.forEach((item) => {
+        if (idsFromArray2.has(item[key])) {
+          result.push(array2.find((obj) => obj[key] === item[key]));
         } else {
-          return searchMovie;
+          result.push(item);
         }
-      }
-    });
-    return filteredData;
+      });
+
+      return result;
+    }
+
+    return compareAndMergeArrays(data, ratedData, 'id');
   }
 
   updateData = (text = this.state.text, page = 1) => {
